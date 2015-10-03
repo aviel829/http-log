@@ -26,7 +26,7 @@ app.get('/', function (request, response) {
 });
 
 var port = 8080;
-server.listen(port);
+server.listen(process.env.PORT || port);
 console.log("listen to port", port);
 
 
