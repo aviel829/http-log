@@ -25,7 +25,7 @@ app.get('/', function (request, response) {
     response.sendFile(__dirname + "/site.html");
 });
 
-var port = 80;
+var port = 8080;
 server.listen(port);
 console.log("listen to port", port);
 
