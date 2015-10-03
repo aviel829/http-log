@@ -18,7 +18,7 @@ app.post('/api/report/', function (request, response) {
     cached_data.push(data);
     console.log(data);
 
-    response.send("ok");
+    response.send("ok, thank you");
 });
 
 app.get('/', function (request, response) {
