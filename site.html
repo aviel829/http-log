@@ -63,6 +63,8 @@
             <thead>
             <tr>
                 <th>IP</th>
+                <th>Country</th>
+                <th>City</th>
                 <th>Time</th>
                 <th>URL</th>
             </tr>
@@ -70,6 +72,8 @@
             <tbody>
             <tr ng-repeat="item in report | filter:search">
                 <td>{{ item.ip }}</td>
+                <td>{{ item.country }}</td>
+                <td>{{ item.organization }}</td>
                 <td>{{ item.time | date:'medium' }}</td>
                 <td>{{ item.url }}</td>
             </tr>
