@@ -64,7 +64,7 @@
             <tr>
                 <th>IP</th>
                 <th>Country</th>
-                <th>region</th>
+                <th>organization</th>
                 <th>Time</th>
                 <th>URL</th>
             </tr>
@@ -74,7 +74,7 @@
                 <td>{{ item.ip }}</td>
                 <td>{{ item.country }}</td>
                 <td>{{ item.organization }}</td>
-                <td>{{ item.time | date:'medium' }}</td>
+                <td>{{ item.time | date:'MMM d, y HH:mm:ss a' }}</td>
                 <td>{{ item.url }}</td>
             </tr>
             </tbody>
