@@ -29,6 +29,9 @@ app.post('/api/report/', function (req, res) {
         var geoipData = JSON.parse(body);
         data.Country = geoipData.country;
         data.region = geoipData.regionName;
+        data.Isp = geoipData.isp;
+        data.Org = geoipData.org;
+        data.City = geoipData.city;
 
         cached_data.push(data);
         console.log(data);
