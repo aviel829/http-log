@@ -76,10 +76,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="item in report | filter:search">
+            <tr ng-repeat="item in report | filter:search | orderBy: 'time' ">
                 <td>{{ item.time | date:'MMM d, y HH:mm:ss a' }}</td>
                 <td>{{ item.ip }}</td>
-                <td>{{ 1 }}</td>    
+                <td>{{ 1 }}</td>
                 <td>{{ item.Country }}</td>
                 <td>{{ item.City }}</td>
                 <td>{{ item.region }}</td>
