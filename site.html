@@ -64,27 +64,28 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th>Time</th>
                 <th>IP</th>
+                <th>NumOfClicks</th>
                 <th>Country</th>
                 <th>City</th>
-                <th>Time</th>
-                <th>URL</th>
+                <th>Region</th>
                 <th>Organization</th>
                 <th>Isp</th>
-                <th>Region</th>
-
+                <th>URL</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="item in report | filter:search">
+                <td>{{ item.time | date:'MMM d, y HH:mm:ss a' }}</td>
                 <td>{{ item.ip }}</td>
+                <td>{{ 1 }}</td>    
                 <td>{{ item.Country }}</td>
                 <td>{{ item.City }}</td>
-                <td>{{ item.time | date:'MMM d, y HH:mm:ss a' }}</td>
-                <td>{{ item.url }}</td>
+                <td>{{ item.region }}</td>
                 <td>{{ item.Org }}</td>
                 <td>{{ item.Isp }}</td>
-                <td>{{ item.region }}</td>
+                <td>{{ item.url }}</td>
             </tr>
             </tbody>
         </table>
