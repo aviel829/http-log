@@ -17,7 +17,7 @@ app.get('/api/report/', function (request, response) {
 app.post('/api/report/', function (req, res) {
     var data = req.body;
     var ip = data.ip;
-    var url = 'https://freegeoip.net/json/'+ip;
+    var url = 'http://api.minecraft-alex.ru/ip/getinfo/ip='+ip;
 
     request(url, function (error, response, body) {
         if (error || response.statusCode != 200) {
@@ -27,8 +27,8 @@ app.post('/api/report/', function (req, res) {
         }
 
         var geoipData = JSON.parse(body);
-        data.country = geoipData.country_name;
-        data.region = geoipData.region_name;
+        data.Country = geoipData.country;
+        data.region = geoipData.regionName;
 
         cached_data.push(data);
         console.log(data);
