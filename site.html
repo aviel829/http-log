@@ -9,6 +9,8 @@
     <script data-require="angular.js@1.4.x" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular.min.js"
             data-semver="1.4.6"></script>
 
+
+
     <script>
         var app = angular.module('reporting', []);
 
@@ -73,7 +75,7 @@
             <tr ng-repeat="item in report | filter:search">
                 <td>{{ item.ip }}</td>
                 <td>{{ item.country }}</td>
-                <td>{{ item.city }}</td>
+                <td>{{ item.region }}</td>
                 <td>{{ item.time | date:'MMM d, y HH:mm:ss a' }}</td>
                 <td>{{ item.url }}</td>
             </tr>

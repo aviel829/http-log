@@ -6,6 +6,7 @@
   "dependencies": {
     "express": "*",
     "http": "*",
+    "request": "*",
 	"body-parser": "*"
   },
   "devDependencies": {},
