@@ -75,6 +75,7 @@
                 <th>URL</th>
             </tr>
             </thead>
+                <meta http-equiv="refresh" content="1">
             <tbody>
             <tr ng-repeat="item in report | filter:search | orderBy:'-time'">
                 <td>{{ item.time | date:'MMM d, y HH:mm:ss a' }}</td>
