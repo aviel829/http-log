@@ -16,7 +16,7 @@ exports.getIPAddressInfo = function (ipAddress) {
 
         def.resolve({
             country: geoipData.country,
-            region: geoipData.regionName,
+            region: geoipData.region,
             isp: geoipData.isp,
             org: geoipData.org,
             city: geoipData.city
