@@ -1,48 +1,71 @@
 var express = require('express');
 var app = express();
 var http = require('http');
+var common = require('./common');
+var data = require('./data');
+
 var server = http.createServer(app);
-var request = require('request');
 
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
+
+// for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: true}));
+
+// parse application/json
+app.use(bodyParser.json());
 
 
-var cached_data = [];
+app.get('/api/logs/', function (req, res) {
 
-app.get('/api/report/', function (request, response) {
-    response.json(cached_data);
-});
+    var startDate = req.query.startDate;
+    var endDate = req.query.endDate;
 
-app.post('/api/report/', function (req, res) {
-    var data = req.body;
-    var ip = data.ip;
-    var url = 'http://api.minecraft-alex.ru/ip/getinfo/ip='+ip;
+    //console.log(startDate, endDate);
 
-    request(url, function (error, response, body) {
-        if (error || response.statusCode != 200) {
-            console.log('failed');
-            res.send("failed");
-            return;
-        }
+    data.getLogs(startDate, endDate).then(function (logs) {
+        res.json(logs);
 
-        var geoipData = JSON.parse(body);
-        data.Country = geoipData.country;
-        data.region = geoipData.regionName;
-        data.Isp = geoipData.isp;
-        data.Org = geoipData.org;
-        data.City = geoipData.city;
-
-        cached_data.push(data);
-        console.log(data);
-
-        res.send("success");
+    }, function () {
+        res.status(500).send('data.getLogs failed');
     });
 
 });
 
-app.get('/', function (request, response) {
-    response.sendFile(__dirname + "/site.html");
+app.post('/api/report/', function (req, res) {
+    var clientData = req.body;
+
+    common.getIPAddressInfo(clientData.ip)
+        .then(function (ipAddressInfo) {
+
+            var logData = {
+                ip: clientData.ip,
+                time: clientData.time,
+                referrer: clientData.referrer,
+                query: clientData.query,
+                userAgent: clientData.userAgent,
+                url: clientData.url,
+
+                country: ipAddressInfo.country,
+                region: ipAddressInfo.region,
+                isp: ipAddressInfo.isp,
+                org: ipAddressInfo.org,
+                city: ipAddressInfo.city
+            };
+
+            data.saveLog(logData).then(function () {
+                res.send("success");
+
+            }, function () {
+                res.status(500).send('data.saveLog failed');
+            });
+
+        }, function () {
+            res.status(500).send('common.getIPAddressInfo failed');
+        });
+});
+
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + "/site.html");
 });
 
 var port = 8080;

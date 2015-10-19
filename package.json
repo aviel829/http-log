@@ -7,7 +7,10 @@
     "express": "*",
     "http": "*",
     "request": "*",
-	"body-parser": "*"
+	"body-parser": "*",
+	"q": "*",
+    "mongoose": "*",
+    "nodemon": "*"
   },
   "devDependencies": {},
   "scripts": {
