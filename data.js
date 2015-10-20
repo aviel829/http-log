@@ -68,6 +68,8 @@ exports.getLogs = function (startDate, endDate) {
 
         if (endDate) {
             filters.time.$lte = endDate;
+
+            console.log(endDate);
         }
     }
 
