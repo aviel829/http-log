@@ -136,7 +136,10 @@
 
                             logs.forEach(function(log)
                             {
-                                var logUniqueId = log.ip + log.url;
+                                var parser = document.createElement('a');
+                                parser.href = log.url;
+                                var urlParse = parser.hostname;
+                                var logUniqueId = log.ip + urlParse;//parse url
 
                                 if (!cache[logUniqueId])
                                 {
