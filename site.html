@@ -51,9 +51,9 @@
                 }
 
                 if ($scope.endDate) {
-                    var date = ($scope.endDate) ;
-                    date.setDate(date.getDate()+1);
-                    params.endDate =  dateToString(date);
+                    //var date = ($scope.endDate) ;
+                    //date.setDate(date.getDate()+1);
+                    params.endDate =  dateToString($scope.endDate);
                 }
 
                 $http({
