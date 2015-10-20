@@ -49,7 +49,6 @@ exports.saveLog = function (logData) {
         def.resolve();
 
     });
-
     return def.promise;
 };
 
