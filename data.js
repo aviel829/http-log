@@ -1,4 +1,4 @@
-var url = "mongodb://localhost/http-log";//"mongodb://aviel:aviel@ds041633.mongolab.com:41633/http-log"
+var url = "mongodb://localhost/http-log";     //"mongodb://aviel:aviel@ds041633.mongolab.com:41633/http-log"
 
 var Q = require('q');
 var mongoose = require('mongoose');
