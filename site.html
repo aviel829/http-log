@@ -35,11 +35,18 @@
             $scope.endDate = '';
 
 
-            var dateToString = function(date){
-                date = new Date(date);
-                date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-                return date.toISOString().slice(0, 10);
+            var dateToString = $scope.dateToString  = function(date){
+                if(date){
+                    date = new Date(date);
+                    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+                    return date.toISOString().slice(0, 10);
+                }
+                else{
+                    return;
+                }
+
             };
+
 
             var getLogs = function () {
 
@@ -51,9 +58,9 @@
                 }
 
                 if ($scope.endDate) {
-                    //var date = ($scope.endDate) ;
-                    //date.setDate(date.getDate()+1);
-                    params.endDate =  dateToString($scope.endDate);
+                    var date = new Date($scope.endDate);
+                    date.setDate(date.getDate()+1);
+                    params.endDate =  dateToString(date);
                 }
 
                 $http({
@@ -107,6 +114,7 @@
                 startingDay: 1
             };
 
+
         });
 
     </script>
@@ -148,6 +156,7 @@
 
     <div>
         <div class="row">
+
             <div class="col-md-4">
                 <div class="control">
                     <label class="control-label">Start date</label>
@@ -188,11 +197,36 @@
 
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-1">
 
-                <div class="control-group">
-                    <!--<label class="control-label">Search</label>-->
-                    <!--search input-->
+                <div class="row" style="margin-top: 23px">
+
+                        <div class="col-md-4">
+
+                            <div class="pull"> <!--if i'm want to right button - apply - write in class - class="pull-right"-->
+
+                                <button ng-click="applyFilters(_startDate, _endDate)" class="btn btn-primary" type="submit">Apply
+                                </button>
+                            </div>
+
+
+                        </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-1">
+
+                <div class="row" style="margin-top: 23px">
+
+                    <div class="col-md-4">
+
+                        <div class="pull">
+
+                <a href="/api/download?startDate={{ dateToString(_startDate) }}&endDate={{ dateToString(_endDate) }}" target="_blank" class="btn btn-primary" type="submit">Excel</a>
+            </div>
+                    </div>
 
                 </div>
 
@@ -200,19 +234,10 @@
 
         </div>
 
-        <div class="row" style="margin-top: 10px">
 
-            <div class="col-md-4 col-md-offset-8">
-
-                <div class="pull"> <!--if i'm want to right button - apply - write in class - class="pull-right"-->
-
-                    <button ng-click="applyFilters(_startDate, _endDate)" class="btn btn-primary" type="submit">Apply
-                    </button>
-                </div>
-
-            </div>
-        </div>
     </div>
+
+
 
 
     <hr/>

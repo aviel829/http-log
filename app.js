@@ -14,21 +14,36 @@ app.use(bodyParser.urlencoded({extended: true}));
 // parse application/json
 app.use(bodyParser.json());
 
-
 app.get('/api/logs/', function (req, res) {
 
     var startDate = req.query.startDate;
     var endDate = req.query.endDate;
 
-    //console.log(startDate, endDate);
+        //console.log(startDate, endDate);
 
-    data.getLogs(startDate, endDate).then(function (logs) {
-        res.json(logs);
-
+        data.getLogs(startDate, endDate).then(function (logs) {
+            res.json(logs);
     }, function () {
         res.status(500).send('data.getLogs failed');
     });
 
+});
+
+app.get('/api/download/', function (req, res) {
+
+    var startDate = req.query.startDate;
+    var endDate = req.query.endDate;
+
+    data.getLogs(startDate, endDate)
+        .then(function (logs) {
+            common.getCsvLogs(logs)
+                .then(function (csvData) {
+                    res.setHeader('Content-disposition', 'attachment; filename=report.csv');
+                    res.setHeader('Content-type', 'text/csv');
+                    res.write(csvData);
+                    res.end();
+                });
+        });
 });
 
 app.post('/api/report/', function (req, res) {

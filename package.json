@@ -10,7 +10,8 @@
 	"body-parser": "*",
 	"q": "*",
     "mongoose": "*",
-    "nodemon": "*"
+    "nodemon": "*",
+    "json2csv": "*"
   },
   "devDependencies": {},
   "scripts": {
