@@ -2,6 +2,7 @@ var url = "mongodb://localhost/http-log";     //"mongodb://aviel:aviel@ds041633.
 
 var Q = require('q');
 var mongoose = require('mongoose');
+var device = require('device');
 mongoose.connect(url);
 
 var Log = mongoose.model('Log',
@@ -47,7 +48,6 @@ exports.saveLog = function (logData) {
         }
 
         def.resolve();
-
     });
     return def.promise;
 };
@@ -75,6 +75,11 @@ exports.getLogs = function (startDate, endDate) {
             def.reject(err);
             return;
         }
+        logs.forEach(
+            function(log){
+                log.userAgent = device(log.userAgent).type;
+            }
+        )
         def.resolve(logs);
     });
 
