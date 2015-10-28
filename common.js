@@ -1,6 +1,7 @@
 var Q = require('q');
 var request = require('request');
 var json2csv = require('json2csv');
+var device = require('device');
 
 //function exports that get object->logs and return object csv
 
@@ -31,7 +32,7 @@ exports.getCsvLogs = function (logs) {
             time: logs[i].time,
             referrer: logs[i].referrer,
             query: logs[i].query,
-            userAgent: logs[i].userAgent,
+            userAgent: device(logs[i].userAgent).type,
             url: logs[i].url,
             country: logs[i].country,
             region: logs[i].region,

@@ -3,6 +3,7 @@ var app = express();
 var http = require('http');
 var common = require('./common');
 var data = require('./data');
+var device = require('device');
 
 var server = http.createServer(app);
 

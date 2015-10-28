@@ -11,7 +11,8 @@
 	"q": "*",
     "mongoose": "*",
     "nodemon": "*",
-    "json2csv": "*"
+    "json2csv": "*",
+    "device": "*"
   },
   "devDependencies": {},
   "scripts": {
