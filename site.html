@@ -35,13 +35,13 @@
             $scope.endDate = '';
 
 
-            var dateToString = $scope.dateToString  = function(date){
-                if(date){
+            var dateToString = $scope.dateToString = function (date) {
+                if (date) {
                     date = new Date(date);
                     date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
                     return date.toISOString().slice(0, 10);
                 }
-                else{
+                else {
                     return;
                 }
 
@@ -59,8 +59,8 @@
 
                 if ($scope.endDate) {
                     var date = new Date($scope.endDate);
-                    date.setDate(date.getDate()+1);
-                    params.endDate =  dateToString(date);
+                    date.setDate(date.getDate() + 1);
+                    params.endDate = dateToString(date);
                 }
 
                 $http({
@@ -97,6 +97,13 @@
                         .finally(function () {
                             $timeout(getLogs, interval);
                         });
+            };
+
+            $scope.deleteLogs = function () {
+                $http({
+                    url: '/api/logs',
+                    method: 'DELETE'
+                }).then(getLogs);
             };
 
             getLogs();
@@ -201,16 +208,18 @@
 
                 <div class="row" style="margin-top: 23px">
 
-                        <div class="col-md-4">
+                    <div class="col-md-4">
 
-                            <div class="pull"> <!--if i'm want to right button - apply - write in class - class="pull-right"-->
+                        <div class="pull">
+                            <!--if i'm want to right button - apply - write in class - class="pull-right"-->
 
-                                <button ng-click="applyFilters(_startDate, _endDate)" class="btn btn-primary" type="submit">Apply
-                                </button>
-                            </div>
-
-
+                            <button ng-click="applyFilters(_startDate, _endDate)" class="btn btn-primary" type="submit">
+                                Apply
+                            </button>
                         </div>
+
+
+                    </div>
 
                 </div>
 
@@ -224,20 +233,35 @@
 
                         <div class="pull">
 
-                <a href="/api/download?startDate={{ dateToString(_startDate) }}&endDate={{ dateToString(_endDate) }}" target="_blank" class="btn btn-primary" type="submit">Excel</a>
-            </div>
+                            <a href="/api/download?startDate={{ dateToString(_startDate) }}&endDate={{ dateToString(_endDate) }}"
+                               target="_blank" class="btn btn-primary" type="submit">Excel</a>
+                        </div>
                     </div>
 
                 </div>
 
             </div>
 
+
+            <div class="col-md-1">
+
+                <div class="row" style="margin-top: 23px">
+
+                    <div class="col-md-4">
+
+                        <div class="pull">
+
+                            <a ng-click="deleteLogs()" class="btn btn-primary" type="submit">Delete</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
 
 
     </div>
-
-
 
 
     <hr/>

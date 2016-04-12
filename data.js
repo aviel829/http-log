@@ -52,7 +52,7 @@ exports.saveLog = function (logData) {
     return def.promise;
 };
 
-exports.getLogs = function (startDate, endDate) {
+exports.getLogs = function (startDate, endDate, limit) {
     var def = Q.defer();
 
     var filters = {};
@@ -70,18 +70,22 @@ exports.getLogs = function (startDate, endDate) {
         }
     }
 
+    if (!limit) {
+        limit = 9999999999;
+    }
+
     Log.find(filters, function (err, logs) {
         if (err) {
             def.reject(err);
             return;
         }
         logs.forEach(
-            function(log){
+            function (log) {
                 log.userAgent = device(log.userAgent).type;
             }
-        )
+        );
         def.resolve(logs);
-    });
+    }).limit(limit);
 
     return def.promise;
 };

@@ -20,15 +20,28 @@ app.get('/api/logs/', function (req, res) {
     var startDate = req.query.startDate;
     var endDate = req.query.endDate;
 
-        //console.log(startDate, endDate);
+    //console.log(startDate, endDate);
 
-        data.getLogs(startDate, endDate).then(function (logs) {
-            res.json(logs);
+    data.getLogs(startDate, endDate, 100).then(function (logs) {
+        res.json(logs);
     }, function () {
         res.status(500).send('data.getLogs failed');
     });
 
 });
+
+
+app.delete('/api/logs/', function (req, res) {
+
+    data.deleteAllLogs()
+        .then(function () {
+            res.json();
+        }, function () {
+            res.status(500).send('data.getLogs failed');
+        });
+
+});
+
 
 app.get('/api/download/', function (req, res) {
 
@@ -50,34 +63,29 @@ app.get('/api/download/', function (req, res) {
 app.post('/api/report/', function (req, res) {
     var clientData = req.body;
 
-    common.getIPAddressInfo(clientData.ip)
-        .then(function (ipAddressInfo) {
 
-            var logData = {
-                ip: clientData.ip,
-                time: clientData.time,
-                referrer: clientData.referrer,
-                query: clientData.query,
-                userAgent: clientData.userAgent,
-                url: clientData.url,
+    var logData = {
+        ip: clientData.ip,
+        time: clientData.time,
+        referrer: clientData.referrer,
+        query: clientData.query,
+        userAgent: clientData.userAgent,
+        url: clientData.url,
 
-                country: ipAddressInfo.country,
-                region: ipAddressInfo.region,
-                isp: ipAddressInfo.isp,
-                org: ipAddressInfo.org,
-                city: ipAddressInfo.city
-            };
+        country: '',
+        region: '',
+        isp: '',
+        org: '',
+        city: ''
+    };
 
-            data.saveLog(logData).then(function () {
-                res.send("success");
+    data.saveLog(logData).then(function () {
+        res.send("success");
 
-            }, function () {
-                res.status(500).send('data.saveLog failed');
-            });
+    }, function () {
+        res.status(500).send('data.saveLog failed');
+    });
 
-        }, function () {
-            res.status(500).send('common.getIPAddressInfo failed');
-        });
 });
 
 app.get('/', function (req, res) {
