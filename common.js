@@ -56,7 +56,7 @@ exports.getCsvLogs = function (logs) {
 exports.getIPAddressInfo = function (ipAddress) {
     var def = Q.defer();
 
-    var url = 'http://api.minecraft-alex.ru/ip/getinfo/ip=' + ipAddress;
+    var url = 'http://ip-api.com/json/' + ipAddress;
     request(url, function (error, response, body) {
         if (error || response.statusCode != 200) {
             console.log('failed');

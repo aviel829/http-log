@@ -33,6 +33,8 @@ app.get('/api/logs/', function (req, res) {
 
 app.delete('/api/logs/', function (req, res) {
 
+    // PLACE HERE
+
     data.deleteAllLogs()
         .then(function () {
             res.json();
@@ -64,27 +66,33 @@ app.post('/api/report/', function (req, res) {
     var clientData = req.body;
 
 
-    var logData = {
-        ip: clientData.ip,
-        time: clientData.time,
-        referrer: clientData.referrer,
-        query: clientData.query,
-        userAgent: clientData.userAgent,
-        url: clientData.url,
+    common.getIPAddressInfo(clientData.ip)
+        .then(function (ipAddressInfo) {
+            var logData = {
+                ip: clientData.ip,
+                time: clientData.time,
+                referrer: clientData.referrer,
+                query: clientData.query,
+                userAgent: clientData.userAgent,
+                url: clientData.url,
 
-        country: '',
-        region: '',
-        isp: '',
-        org: '',
-        city: ''
-    };
+                country: ipAddressInfo.country,
+                region: ipAddressInfo.region,
+                isp: ipAddressInfo.isp,
+                org: ipAddressInfo.org,
+                city: ipAddressInfo.city
+            };
 
-    data.saveLog(logData).then(function () {
-        res.send("success");
+            data.saveLog(logData).then(function () {
+                res.send("success");
 
-    }, function () {
-        res.status(500).send('data.saveLog failed');
-    });
+            }, function () {
+                res.status(500).send('data.saveLog failed');
+            });
+
+        }, function () {
+            res.status(500).send('common.getIPAddressInfo failed');
+        });
 
 });
 
