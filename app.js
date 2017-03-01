@@ -100,7 +100,7 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + "/site.html");
 });
 
-var port = 8080;
+var port = 8000;
 server.listen(process.env.PORT || port);
 console.log("listen to port", port);
 
